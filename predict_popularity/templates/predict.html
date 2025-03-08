@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+
+<head>
+	<title>Song popularity</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+		crossorigin="anonymous"></script>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<!-- <link href="{% static 'css/now-ui-kit.css' %}" rel="stylesheet" /> -->
+	<link href="{% static 'css/style_predict.css' %}" rel="stylesheet" />
+</head>
+
+<body>
+	<div class="container main-container-div">
+		<nav class="navbar navbar-expand-lg navbar-transparent">
+			<div class="container">
+				<div class="collapse navbar-collapse justify-content-end" id="navigation">
+					<ul class="navbar-nav nav-tabs">
+						<li class="nav-item"><a href="{% url 'accounts:logout' %}" class="btn btn-neutral">Logout</a>
+						</li>
+
+					</ul>
+				</div>
+			</div>
+		</nav>
+		<h1 class="mx-auto d-block text-center main-title"> Predict Song Popularity</h1>
+
+		<div>
+			<center>
+			<table border=1 class="table-bordered">
+
+				<hr/>
+				<tr>
+					<td>bpm</td>
+					<td>Energy</td>
+					<td>Danceability</td>
+					<td>Loudness</td>
+					<td>Liveness</td>
+					<td>Valence</td>
+					<td>Duration</td>
+					<td>Acousticness</td>
+					<td>Speechiness</td>
+					<td>Popularity</td>
+				</tr>
+
+				{% for pred in profile.popularitypredict.all%}
+				<tr>
+					<td>{{pred.bpm}}</td>
+					<td>{{pred.Energy}}</td>
+					<td>{{pred.Danceability}}</td>
+					<td>{{pred.Loudness}}</td>
+					<td>{{pred.Liveness}}</td>
+					<td>{{pred.Valence}}</td>
+					<td>{{pred.Duration}}</td>
+					<td>{{pred.Acousticness}}</td>
+					<td>{{pred.Speechiness}}</td>
+					<td>{{pred.result}}</td>
+				</tr>
+
+				{%endfor%}
+			</table>
+		</center>
+			<div class="card" role="alert">
+				{% if predicted %}
+
+				<div class="header-main">
+
+					<h4> Popularity : {{prediction}}</h4>
+				</div>
+
+
+				{% endif %}
+
+
+
+				<form method="post" class="card-form">
+					{% csrf_token %}
+					<div>
+						<div class="input">
+							{{form.Title}}
+							<label class="input-label">Title</label>
+
+						</div>
+						<div class="input">
+							{{form.Artist}}
+							<label class="input-label">Artist</label>
+						</div>
+
+						<div class="input">
+							{{form.Year}}
+							<label class="input-label">Year</label>
+						</div>
+
+						<div class="input">
+							{{form.bpm}}
+							<label class="input-label">bpm</label>
+						</div>
+
+						<div class="input">
+							{{form.Energy}}
+							<label class="input-label">Energy</label>
+						</div>
+						<div class="input">
+							{{form.Danceability}}
+							<label class="input-label">Danceability</label>
+						</div>
+						<div class="input">
+							{{form.Loudness}}
+							<label class="input-label">Loudness</label>
+						</div>
+						<div class="input">
+							{{form.Liveness}}
+							<label class="input-label">Liveness</label>
+						</div>
+						<div class="input">
+							{{form.Valence}}
+							<label class="input-label">Valence</label>
+						</div>
+						<div class="input">
+							{{form.Duration}}
+							<label class="input-label">Duration</label>
+						</div>
+
+
+						<div class="input">
+							{{form.Acousticness}}
+							<label class="input-label">Acousticness</label>
+						</div>
+
+						<div class="input">
+							{{form.Speechiness}}
+							<label class="input-label">Speechiness</label>
+						</div>
+					</div>
+
+					<div class="clear"></div>
+					<input type="submit" value="Predict" class="btn submit-btn-main">
+				</form>
+			</div>
+		</div>
+</body>
+
+</html>
