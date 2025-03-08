@@ -1,0 +1,6 @@
+.bgimage {
+    background-image: url('../images/2.jpeg');
+    background-size: cover;
+     background-position: top center;
+    min-height: 700px;
+}
